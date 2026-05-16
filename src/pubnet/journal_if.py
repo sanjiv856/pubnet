@@ -229,4 +229,22 @@ class JournalIFLookup:
         for venue in sorted(venues):
             result[venue] = self.get(venue)
 
-        found = sum(1
+        found = sum(1 for v in result.values() if v is not None)
+        logger.info("IF lookup: %d/%d venues resolved", found, len(venues))
+        return result
+
+
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
+
+def _normalise_venue(name: str) -> str:
+    """Normalise a venue name for matching."""
+    name = name.lower().strip()
+    # Remove common prefixes/suffixes
+    for prefix in ("the ", "journal of ", "proceedings of "):
+        if name.startswith(prefix):
+            name = name[len(prefix):]
+    # Remove punctuation
+    name = "".join(c for c in name if c.isalnum() or c == " ")
+    return " ".join(name.split())

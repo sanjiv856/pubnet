@@ -386,4 +386,3 @@ def _short_name(name: str) -> str:
     if len(parts) <= 1:
         return name[:8]
     return ".".join(p[0] for p in parts) + "."
-    

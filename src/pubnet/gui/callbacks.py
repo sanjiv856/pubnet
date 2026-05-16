@@ -475,4 +475,7 @@ def _empty_state():
                            "textDecoration": "none", "borderBottom": "1px solid #D4CEC7"},
                 ),
             ],
-        
+            className="author-header",
+        ),
+        stat_cards_row(),
+    ]
