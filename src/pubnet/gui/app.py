@@ -44,7 +44,8 @@ def create_app(scholar_url: str | None = None) -> dash.Dash:
     return app
 
 
+# Expose Flask server for production WSGI (gunicorn)
+server = create_app().server
+
 # Allow running directly: python -m pubnet.gui.app
-if __name__ == "__main__":
-    app = create_app()
-    app.run(port=8050, debug=True)
+if
