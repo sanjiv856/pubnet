@@ -4,14 +4,14 @@ Publication network analyser for researchers. Given a Google Scholar profile, Pu
 
 ## Features
 
-- **Co-author network graph** — interactive force-directed graph showing collaboration patterns
-- **Citation trends** — yearly citation counts with rolling h-index overlay
-- **Publications per year** — output volume over time
-- **Topic clusters** — TF-IDF + k-means clustering of research themes
-- **Journal impact factors** — Scimago CSV lookup with OpenAlex API fallback
-- **Crossref enrichment** — corrects venue names and adds DOIs via free Crossref API
-- **Reference formatting** — APA, MLA, BibTeX, Vancouver, Chicago with copy-to-clipboard
-- **Two interfaces** — CLI (self-contained HTML report) and Dash GUI (live interactive exploration)
+- **Co-author network graph** - interactive force-directed graph showing collaboration patterns
+- **Citation trends** - yearly citation counts with rolling h-index overlay
+- **Publications per year** - output volume over time
+- **Topic clusters** - TF-IDF + k-means clustering of research themes
+- **Journal impact factors** - Scimago CSV lookup with OpenAlex API fallback
+- **Crossref enrichment** - corrects venue names and adds DOIs via free Crossref API
+- **Reference formatting** - APA, MLA, BibTeX, Vancouver, Chicago with copy-to-clipboard
+- **Two interfaces** - CLI (self-contained HTML report) and Dash GUI (live interactive exploration)
 
 ## Install
 

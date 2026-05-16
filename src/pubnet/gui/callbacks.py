@@ -428,7 +428,7 @@ def register_callbacks(app):
 
 
 # Placeholder URL - update after creating the GitHub repo
-GITHUB_URL = "https://github.com/YOUR_USERNAME/pubnet"
+GITHUB_URL = "https://github.com/sanjiv856/pubnet"
 
 
 def _get_active_view():
