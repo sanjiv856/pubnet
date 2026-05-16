@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PubNet Report — {{ author.name }}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-page: #F5F0EB;
+  --bg-card: #FFFFFF;
+  --bg-card-alt: #FAF7F4;
+  --bg-highlight: #F0EBE3;
+  --text-primary: #2C2420;
+  --text-secondary: #5C4F46;
+  --text-tertiary: #8A7E75;
+  --text-muted: #A89E95;
+  --border: #E2DCD6;
+  --border-light: #EDE8E3;
+  --accent: #6B4C3B;
+  --accent-light: #F0EBE3;
+  --accent-text: #5A3D2E;
+  --teal: #E8F4EF;
+  --teal-text: #1B5E47;
+  --blue: #E8F0F8;
+  --blue-text: #1A4D7C;
+  --amber: #FDF4E7;
+  --amber-text: #7A5216;
+  --green: #E8F4EF;
+  --green-text: #1B5E47;
+  --red-light: #FBF0EF;
+  --red-text: #8B2E2E;
+  --shadow-sm: 0 1px 3px rgba(44,36,32,0.06);
+  --shadow-md: 0 2px 8px rgba(44,36,32,0.08);
+  --shadow-lg: 0 4px 16px rgba(44,36,32,0.10);
+  --font-serif: 'Libre Baskerville', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --radius: 10px;
+  --radius-sm: 6px;
+  --radius-lg: 14px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-page);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+/* Header card */
+.header-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px 36px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+.header-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent), #8B6B5A, #A08875);
+}
+.header-card h1 {
+  font-family: var(--font-serif);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+.header-card .affiliation {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  font-weight: 400;
+}
+.header-card .interests {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+.header-card .interests span {
+  font-size: 12px;
+  background: var(--accent-light);
+  color: var(--accent-text);
+  padding: 4px 12px;
+  border-radius: 99px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+.header-subtitle {
+  font-family: var(--font-serif);
+  font-size: 13px;
+  font-style: italic;
+  color: var(--text-tertiary);
+  margin-top: 4px;
+}
+
+/* Stat cards row */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s, transform 0.15s;
+}
+.stat-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+.stat-card .label {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.stat-card .value {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* Panels / cards */
+.panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px 24px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+}
+.panel-title {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-light);
+  letter-spacing: 0.01em;
+}
+
+/* Two-column layout */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+@media (max-width: 768px) {
+  .two-col { grid-template-columns: 1fr; }
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Chart containers */
+.chart-container {
+  width: 100%;
+  min-height: 300px;
+}
+
+/* Network graph */
+.network-container {
+  width: 100%;
+  min-height: 400px;
+  background: var(--bg-card-alt);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+}
+
+/* Publication table */
+.pub-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.sort-buttons { display: flex; gap: 6px; }
+.sort-btn {
+  font-size: 11px;
+  padding: 5px 12px;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  transition: all 0.15s;
+}
+.sort-btn:hover { background: var(--accent-light); }
+.sort-btn.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.search-box {
+  font-size: 12px;
+  padding: 7px 14px;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+  background: var(--bg-card-alt);
+  color: var(--text-primary);
+  width: 220px;
+  font-family: var(--font-sans);
+  transition: border-color 0.15s;
+}
+.search-box:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* Publication rows */
+.pub-row {
+  padding: 14px 12px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: background 0.12s;
+}
+.pub-row:last-child { border-bottom: none; }
+.pub-row:hover { background: var(--bg-card-alt); }
+.pub-year {
+  font-family: var(--font-serif);
+  font-size: 13px;
+  color: var(--text-tertiary);
+  min-width: 40px;
+  padding-top: 2px;
+  flex-shrink: 0;
+  font-weight: 400;
+}
+.pub-info { flex: 1; min-width: 0; }
+.pub-title {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  line-height: 1.45;
+  color: var(--text-primary);
+}
+.pub-authors {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-bottom: 6px;
+  font-style: italic;
+}
+.pub-meta {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Badges */
+.badge {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 99px;
+  display: inline-block;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+.badge-cites { background: var(--accent-light); color: var(--accent-text); }
+.badge-venue { background: var(--teal); color: var(--teal-text); }
+.badge-if    { background: var(--amber); color: var(--amber-text); }
+.badge-if-high { background: var(--green); color: var(--green-text); }
+
+/* Expanded reference */
+.pub-ref {
+  display: none;
+  margin-top: 10px;
+  padding: 12px 16px;
+  background: var(--bg-card-alt);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-light);
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+.pub-ref.show { display: block; }
+.pub-ref .ref-format-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+.pub-ref .ref-tab {
+  font-size: 10px;
+  padding: 3px 10px;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  transition: all 0.15s;
+}
+.pub-ref .ref-tab.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.ref-text {
+  font-family: var(--font-serif);
+  font-size: 13px;
+  word-break: break-word;
+  line-height: 1.65;
+}
+.copy-btn {
+  font-size: 11px;
+  padding: 4px 14px;
+  margin-top: 8px;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  transition: all 0.15s;
+}
+.copy-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* Export section */
+.export-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.export-btn {
+  font-size: 12px;
+  padding: 8px 18px;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  transition: all 0.15s;
+  box-shadow: var(--shadow-sm);
+}
+.export-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* Footer */
+.footer {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  padding: 28px 0 12px;
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+.footer a { color: var(--accent); text-decoration: none; }
+
+/* Publication count badge in panel title */
+.pub-count {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  background: var(--accent-light);
+  color: var(--accent-text);
+  padding: 2px 8px;
+  border-radius: 99px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .container { padding: 16px 12px; }
+  .header-card { padding: 20px 18px; }
+  .header-card h1 { font-size: 20px; }
+  .panel { padding: 14px 16px; }
+  .pub-controls { flex-direction: column; align-items: stretch; }
+  .search-box { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header Card -->
+  <div class="header-card">
+    <h1>{{ author.name }}</h1>
+    {% if author.affiliation %}
+    <div class="affiliation">{{ author.affiliation }}</div>
+    {% endif %}
+    {% if author.interests %}
+    <div class="interests">
+      {% for interest in author.interests %}
+      <span>{{ interest }}</span>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- Stat Cards -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="label">Publications</div>
+      <div class="value">{{ stats.total_publications }}</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Total Citations</div>
+      <div class="value">{{ "{:,}".format(stats.total_citations) }}</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">h-index</div>
+      <div class="value">{{ stats.h_index }}</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">i10-index</div>
+      <div class="value">{{ stats.i10_index }}</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Co-authors</div>
+      <div class="value">{{ stats.unique_coauthors }}</div>
+    </div>
+    {% if stats.avg_impact_factor %}
+    <div class="stat-card">
+      <div class="label">Avg. Impact Factor</div>
+      <div class="value">{{ stats.avg_impact_factor }}</div>
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- Row 1: Co-Author Network + Publications Per Year -->
+  <div class="two-col">
+    <div class="panel">
+      <div class="panel-title">Co-Author Network</div>
+      <div class="network-container" id="network-graph">
+        {{ network_html }}
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Publications Per Year</div>
+      <div class="chart-container" id="pubs-per-year-chart"></div>
+    </div>
+  </div>
+
+  <!-- Row 2: Citations Per Year + Topic Clusters -->
+  <div class="two-col">
+    <div class="panel">
+      <div class="panel-title">Citations Per Year</div>
+      <div class="chart-container" id="citation-chart"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Topic Clusters</div>
+      <div class="chart-container" id="cluster-chart"></div>
+    </div>
+  </div>
+
+  <!-- Export buttons -->
+  <div class="export-row">
+    <button class="export-btn" onclick="exportJSON()">Export JSON</button>
+    <button class="export-btn" onclick="exportCSV()">Export CSV</button>
+  </div>
+
+  <!-- Publication Table -->
+  <div class="panel">
+    <div class="pub-controls">
+      <div class="panel-title" style="margin:0;border:none;padding:0;">Publications <span class="pub-count" id="pub-count"></span></div>
+      <div style="display:flex;gap:10px;align-items:center;">
+        <input type="text" class="search-box" id="pub-search" placeholder="Search title, author, or journal..." oninput="filterPubs()">
+        <div class="sort-buttons">
+          <button class="sort-btn active" data-sort="citations" onclick="sortPubs('citations',this)">Citations</button>
+          <button class="sort-btn" data-sort="year" onclick="sortPubs('year',this)">Year</button>
+          <button class="sort-btn" data-sort="if" onclick="sortPubs('if',this)">IF</button>
+          <button class="sort-btn" data-sort="venue" onclick="sortPubs('venue',this)">Journal</button>
+        </div>
+      </div>
+    </div>
+    <div id="pub-table"></div>
+  </div>
+
+  <div class="footer">
+    Generated by <a href="{{ github_url }}" target="_blank">PubNet</a> · {{ generated_at }}
+    {% if gui_url %} · <a href="{{ gui_url }}" target="_blank">Try the interactive version</a>{% endif %}
+  </div>
+
+</div>
+
+<script>
+// =========================================================================
+// Data injected by PubNet report renderer
+// =========================================================================
+const PUBLICATIONS = {{ publications_json }};
+const IMPACT_FACTORS = {{ impact_factors_json }};
+const REFERENCES = {{ references_json }};
+const CITATION_CHART_DATA = {{ citation_chart_json }};
+const CLUSTER_CHART_DATA = {{ cluster_chart_json }};
+const PUBS_PER_YEAR_DATA = {{ pubs_per_year_json }};
+
+// =========================================================================
+// Plotly charts — deferred until library loads
+// =========================================================================
+const CHART_STYLE = {
+  paper_bgcolor: 'rgba(0,0,0,0)',
+  plot_bgcolor: 'rgba(0,0,0,0)',
+  font: { family: "'Inter', -apple-system, sans-serif", size: 11, color: '#5C4F46' },
+  margin: { t: 10, r: 20, b: 40, l: 50 },
+  xaxis: { gridcolor: '#EDE8E3', linecolor: '#E2DCD6' },
+  yaxis: { gridcolor: '#EDE8E3', linecolor: '#E2DCD6' },
+};
+
+function initCharts() {
+  if (typeof Plotly === 'undefined') return;
+
+  // Update bar colours to match warm palette
+  if (CITATION_CHART_DATA.data && CITATION_CHART_DATA.data.length > 0) {
+    const barTrace = CITATION_CHART_DATA.data[0];
+    if (barTrace && barTrace.type === 'bar' && barTrace.marker) {
+      const citations = barTrace.y || [];
+      const maxC = Math.max(...citations, 1);
+      barTrace.marker.color = citations.map(c =>
+        `rgba(107, 76, 59, ${0.35 + 0.65 * (c / maxC)})`
+      );
+    }
+    // Update h-index line colour
+    if (CITATION_CHART_DATA.data[1]) {
+      CITATION_CHART_DATA.data[1].line = { color: '#1B5E47', width: 2.5 };
+      CITATION_CHART_DATA.data[1].marker = { size: 6, color: '#1B5E47' };
+    }
+  }
+
+  // Update cluster colours
+  if (CLUSTER_CHART_DATA.data && CLUSTER_CHART_DATA.data.length > 0) {
+    const scatter = CLUSTER_CHART_DATA.data[0];
+    if (scatter && scatter.marker) {
+      scatter.marker.color = [
+        '#6B4C3B', '#1B5E47', '#1A4D7C', '#7A5216', '#8B2E2E',
+        '#5A3D6B', '#2E6B5A', '#3B5C8B', '#8B6B2E', '#6B2E4C',
+      ];
+      scatter.marker.opacity = 0.8;
+    }
+  }
+
+  Plotly.newPlot('pubs-per-year-chart', PUBS_PER_YEAR_DATA.data, {
+    ...CHART_STYLE,
+    ...PUBS_PER_YEAR_DATA.layout,
+  }, { responsive: true, displayModeBar: false });
+
+  Plotly.newPlot('citation-chart', CITATION_CHART_DATA.data, {
+    ...CHART_STYLE,
+    ...CITATION_CHART_DATA.layout,
+  }, { responsive: true, displayModeBar: false });
+
+  Plotly.newPlot('cluster-chart', CLUSTER_CHART_DATA.data, {
+    ...CHART_STYLE,
+    ...CLUSTER_CHART_DATA.layout,
+  }, { responsive: true, displayModeBar: false });
+}
+
+// =========================================================================
+// Publication table
+// =========================================================================
+let currentSort = 'citations';
+let currentDir = 'desc';
+
+function truncateAuthors(authors, max) {
+  if (!authors || authors.length === 0) return '';
+  if (authors.length <= max) return authors.join(', ');
+  return authors.slice(0, max).join(', ') + ' et al.';
+}
+
+function renderPubs(pubs) {
+  const el = document.getElementById('pub-table');
+  const countEl = document.getElementById('pub-count');
+  if (countEl) countEl.textContent = pubs.length;
+
+  el.innerHTML = pubs.map((p, i) => {
+    const origIdx = p._idx !== undefined ? p._idx : i;
+    const ifVal = IMPACT_FACTORS[p.venue];
+    const ifBadge = ifVal ? `<span class="badge ${ifVal >= 10 ? 'badge-if-high' : 'badge-if'}">IF ${ifVal}</span>` : '';
+    const refs = REFERENCES[origIdx] || {};
+    const refStyles = Object.keys(refs);
+    const firstStyle = refStyles[0] || 'apa';
+    const authorStr = truncateAuthors(p.authors, 4);
+    const uid = 'pub-' + origIdx;
+
+    return `
+      <div class="pub-row" onclick="toggleRef('${uid}')">
+        <span class="pub-year">${p.year || 'n.d.'}</span>
+        <div class="pub-info">
+          <div class="pub-title">${p.title}</div>
+          ${authorStr ? `<div class="pub-authors">${authorStr}</div>` : ''}
+          <div class="pub-meta">
+            <span class="badge badge-cites">${p.citations.toLocaleString()} citations</span>
+            ${p.venue && p.venue !== 'Unknown' ? `<span class="badge badge-venue">${p.venue}</span>` : ''}
+            ${ifBadge}
+          </div>
+          <div class="pub-ref" id="ref-${uid}">
+            <div class="ref-format-tabs">
+              ${refStyles.map(s => `<button class="ref-tab ${s===firstStyle?'active':''}" onclick="event.stopPropagation();switchRef('${uid}','${s}',this)">${s.toUpperCase()}</button>`).join('')}
+            </div>
+            <div class="ref-text" id="ref-text-${uid}">${refs[firstStyle] || ''}</div>
+            <button class="copy-btn" onclick="event.stopPropagation();copyRef('${uid}')">Copy Reference</button>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function sortPubs(key, btn) {
+  if (currentSort === key) {
+    currentDir = currentDir === 'desc' ? 'asc' : 'desc';
+  } else {
+    currentSort = key;
+    currentDir = 'desc';
+  }
+
+  document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  const sorted = [...PUBLICATIONS].sort((a, b) => {
+    let va, vb;
+    if (key === 'citations') { va = a.citations; vb = b.citations; }
+    else if (key === 'year') { va = a.year || 0; vb = b.year || 0; }
+    else if (key === 'if') { va = IMPACT_FACTORS[a.venue] || 0; vb = IMPACT_FACTORS[b.venue] || 0; }
+    else if (key === 'venue') { va = (a.venue||'').toLowerCase(); vb = (b.venue||'').toLowerCase(); return currentDir === 'desc' ? vb.localeCompare(va) : va.localeCompare(vb); }
+    return currentDir === 'desc' ? vb - va : va - vb;
+  });
+  renderPubs(sorted);
+}
+
+function filterPubs() {
+  const q = document.getElementById('pub-search').value.toLowerCase();
+  const filtered = PUBLICATIONS.filter(p =>
+    p.title.toLowerCase().includes(q) ||
+    (p.authors || []).some(a => a.toLowerCase().includes(q)) ||
+    (p.venue || '').toLowerCase().includes(q)
+  );
+  renderPubs(filtered);
+}
+
+function toggleRef(uid) {
+  const el = document.getElementById('ref-' + uid);
+  if (el) el.classList.toggle('show');
+}
+
+function switchRef(uid, style, btn) {
+  // Extract original numeric index from uid like "pub-5"
+  const origIdx = parseInt(uid.replace('pub-', ''), 10);
+  const refs = REFERENCES[origIdx] || {};
+  document.getElementById('ref-text-' + uid).textContent = refs[style] || '';
+  btn.parentElement.querySelectorAll('.ref-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function copyRef(uid) {
+  const text = document.getElementById('ref-text-' + uid).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = event.target;
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy Reference', 1500);
+  });
+}
+
+// =========================================================================
+// Export
+// =========================================================================
+function exportJSON() {
+  const blob = new Blob([JSON.stringify(PUBLICATIONS, null, 2)], { type: 'application/json' });
+  downloadBlob(blob, 'pubnet_publications.json');
+}
+
+function exportCSV() {
+  const headers = ['title', 'authors', 'year', 'venue', 'citations', 'impact_factor'];
+  const rows = PUBLICATIONS.map(p => [
+    `"${(p.title||'').replace(/"/g,'""')}"`,
+    `"${(p.authors||[]).join('; ')}"`,
+    p.year || '',
+    `"${p.venue || ''}"`,
+    p.citations || 0,
+    IMPACT_FACTORS[p.venue] || '',
+  ]);
+  const csv = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+  downloadBlob(new Blob([csv], { type: 'text/csv' }), 'pubnet_publications.csv');
+}
+
+function downloadBlob(blob, filename) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+// =========================================================================
+// Initial render
+// =========================================================================
+const sorted = [...PUBLICATIONS].sort((a, b) => b.citations - a.citations);
+renderPubs(sorted);
+</script>
+
+{{ plotly_js }}
+
+</body>
+</html>

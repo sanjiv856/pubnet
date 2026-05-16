@@ -1,0 +1,457 @@
+{
+  "name": "Sanjiv Kumar",
+  "scholar_id": "ML7X29AAAAAJ",
+  "affiliation": "Professor of Medicine & Biomedical Informatics",
+  "email_domain": "university.edu",
+  "interests": [
+    "immunology",
+    "machine learning",
+    "genomics",
+    "clinical informatics",
+    "precision medicine"
+  ],
+  "h_index": 18,
+  "i10_index": 25,
+  "total_citations": 4547,
+  "url_picture": null,
+  "publications": [
+    {
+      "title": "Longitudinal biomarker dynamics in post-acute sequelae of SARS-CoV-2 infection",
+      "authors": [
+        "Sanjiv Kumar",
+        "Anita Krishnan",
+        "Michael Jensen",
+        "Rachel Park"
+      ],
+      "year": 2023,
+      "venue": "Nature Medicine",
+      "citations": 412,
+      "abstract": "Post-acute sequelae of SARS-CoV-2 (PASC) present with diverse symptoms. We tracked 50 biomarkers over 12 months in 890 patients, identifying persistent inflammatory signatures.",
+      "url": null,
+      "publisher": null,
+      "impact_factor": null,
+      "cluster_id": null
+    },
+    {
+      "title": "Single-cell transcriptomics of innate immune responses to viral challenge",
+      "authors": [
+        "Sanjiv Kumar",
+        "Michael Jensen",
+        "Sarah Lin",
+        "Thomas Okello"
+      ],
+      "year": 2022,
+      "venue": "Cell",
+      "citations": 287,
+      "abstract": "Using scRNA-seq we profiled 200,000 PBMCs from 45 donors during acute viral infection, revealing novel myeloid activation states.",
+      "url": null,
+      "publisher": null,
+      "impact_factor": null,
+      "cluster_id": null
+    },
+    {
+      "title": "Epigenetic regulation of T-cell exhaustion in chronic infection",
+      "authors": [
+        "Sanjiv Kumar",
+        "Rachel Park",
+        "David Chen"
+      ],
+      "year": 2024,
+      "venue": "Immunity",
+      "citations": 144,
+      "abstract": "Chromatin accessibility profiling of exhausted CD8+ T cells reveals stepwise epigenetic remodeling during chronic viral infection.",
+      "url": null,
+      "publisher": null,
+      "impact_factor": null,
+      "cluster_id": null
+    },
+    {
+      "title": "Deep learning for automated histopathology grading in renal biopsies",
+      "authors": [
+        "Sanjiv Kumar",
+        "Priya Sharma",
+        "Wei Zhang"
+      ],
+      "year": 2024,
+      "venue": "Nature Machine Intelligence",
+      "citations": 98,
+      "abstract": "A convolutional neural network trained on 12,000 annotated biopsy images achieves pathologist-level accuracy in grading glomerular lesions.",
+      "url": null,
+      "publisher": null,
+      "impact_factor": null,
+      "cluster_id": null
+    },
+    {
+      "title": "Multi-omic integration reveals metabolic drivers of sepsis mortality",
+      "authors": [
+        "Sanjiv Kumar",
+        "Anita Krishnan",
+        "James Wu",
+        "Elena Volkov"
+      ],
+      "year": 2023,
+      "venue": "The Lancet",
+      "citations": 356,
+      "abstract": "Integrating transcriptomics, proteomics, and metabolomics from 1,200 ICU patients identifies mitochondrial dysfunction signatures predictive of 28-day mortality.",
+      "url": null,
+      "publisher": null,
+      "impact_factor": null,
+      "cluster_id": null
+    },
+    {
+      "title": "Gut microbiome composition predicts response to immune checkpoint therapy",
+      "authors": [
+        "Sanjiv Kumar",
+        "Sarah Lin",
+        "Carlos Mendez"
+      ],
+      "year": 2022,
+      "venue": "Science",
+      "citations": 298,
+      "abstract": "Metagenomic sequencing of pre-treatment stool samples from 340 melanoma patients reveals microbial signatures associated with immunotherapy response.",
+      "url": null,
+      "publisher": null,
+      "impact_factor": null,
+      "cluster_id": null
+    },
+    {
+      "title": "CRISPR-based screening identifies novel regulators of macrophage polarization",
+      "authors": [
+        "Michael Jensen",
+        "Sanjiv Kumar",
+        "Thomas Okello"
+      ],
+      "year": 2023,
+      "venue": "Nature Immunology",
+      "citations": 189,
+      "abstract": "Genome-wide CRISPR knockout screen in primary human macrophages identifies 47 previously unknown regulators of M1/M2 polarization.",
+      "url": null,
+      "publisher": null,
+      "impact_factor": null,
+      "cluster_id": null
+    },
+    {
+      "title": "Spatial transcriptomics maps the tumor immune microenvironment",
+      "authors": [
+        "Sanjiv Kumar",
+        "Rachel Park",
+        "Priya Sharma",
+        "David Chen"
+      ],
+      "year": 2024,
+      "venue": "Nature",
+      "citations": 76,
+      "abstract": "Multiplexed spatial transcriptomics across 89 tumor samples reveals spatially organized immune niches predicting immunotherapy response.",
+      "url": null,
+      "publisher": null,
+      "impact_factor": null,
+      "cluster_id": null
+    },
+    {
+      "title": "Machine learning prediction of antimicrobial resistance from whole-genome sequences",
+      "authors": [
+        "Wei Zhang",
+        "Sanjiv Kumar",
+        "James Wu"
+      ],
+      "year": 2021,
+      "venue": "Nature Microbiology",
+      "citations": 203,
+      "abstract": "Random forest and gradient boosting models trained on 15,000 bacterial genomes predict resistance phenotypes with 94% accuracy.",
+      "url": null,
+      "publisher": null,
+      "impact_factor": null,
+      "cluster_id": null
+    },
+    {
+      "title": "Circulating tumor DNA dynamics during neoadjuvant immunotherapy",
+      "authors": [
+        "Sanjiv Kumar",
+        "Elena Volkov",
+        "Carlos Mendez"
+      ],
+      "year": 2023,
+      "venue": "Journal of Clinical Oncology",
+      "citations": 167,
+      "abstract": "Serial ctDNA monitoring in 230 NSCLC patients during neoadjuvant pembrolizumab reveals early molecular response signatures.",
+      "url": null,
+      "publisher": null,
+      "impact_factor": null,
+      "cluster_id": null
+    },
+    {
+      "title": "Proteogenomic characterization of treatment-resistant acute myeloid leukemia",
+      "authors": [
+        "Anita Krishnan",
+        "Sanjiv Kumar",
+        "Michael Jensen"
+      ],
+      "year": 2022,
+      "venue": "Cancer Cell",
+      "citations": 145,
+      "abstract": "Integrated proteogenomic analysis of 200 AML samples identifies druggable kinase fusions in treatment-resistant disease.",
+      "url": null,
+      "publisher": null,
+      "impact_factor": null,
+      "cluster_id": null
+    },
+    {
+      "title": "Wearable biosensors for continuous immune monitoring in transplant recipients",
+      "authors": [
+        "Sanjiv Kumar",
+        "Priya Sharma",
+        "Sarah Lin"
+      ],
+      "year": 2024,
+      "venue": "Science Translational Medicine",
+      "citations": 52,
+      "abstract": "A wrist-worn biosensor measuring sweat cytokines provides real-time immune status monitoring in 80 kidney transplant recipients.",
+      "url": null,
+      "publisher": null,
+      "impact_factor": null,
+      "cluster_id": null
+    },
+    {
+      "title": "Federated learning for multi-institutional clinical outcome prediction",
+      "authors": [
+        "Wei Zhang",
+        "Sanjiv Kumar",
+        "Elena Volkov",
+        "Thomas Okello"
+      ],
+      "year": 2023,
+      "venue": "Nature Medicine",
+      "citations": 134,
+      "abstract": "Privacy-preserving federated learning across 12 hospitals achieves centralised-equivalent accuracy for ICU mortality prediction.",
+      "url": null,
+      "publisher": null,
+      "impact_factor": null,
+      "cluster_id": null
+    },
+    {
+      "title": "Long non-coding RNA atlas of human immune cell differentiation",
+      "authors": [
+        "Sanjiv Kumar",
+        "David Chen",
+        "Anita Krishnan"
+      ],
+      "year": 2021,
+      "venue": "Cell Reports",
+      "citations": 112,
+      "abstract": "Comprehensive lncRNA profiling across 15 immune cell lineages identifies 340 lineage-specific transcripts with functional validation.",
+      "url": null,
+      "publisher": null,
+      "impact_factor": null,
+      "cluster_id": null
+    },
+    {
+      "title": "Neoantigens from frameshift mutations drive anti-tumor immunity in microsatellite-unstable cancers",
+      "authors": [
+        "Carlos Mendez",
+        "Sanjiv Kumar",
+        "Rachel Park"
+      ],
+      "year": 2022,
+      "venue": "Nature Medicine",
+      "citations": 178,
+      "abstract": "Analysis of 600 MSI-H tumors reveals frameshift-derived neoantigens as dominant targets of tumor-infiltrating lymphocytes.",
+      "url": null,
+      "publisher": null,
+      "impact_factor": null,
+      "cluster_id": null
+    },
+    {
+      "title": "Real-world effectiveness of CAR-T cell therapy in relapsed large B-cell lymphoma",
+      "authors": [
+        "Sanjiv Kumar",
+        "James Wu",
+        "Anita Krishnan",
+        "Priya Sharma"
+      ],
+      "year": 2023,
+      "venue": "New England Journal of Medicine",
+      "citations": 234,
+      "abstract": "Registry analysis of 1,500 patients receiving commercial CAR-T products shows 42% complete response rate with distinct toxicity profiles by product.",
+      "url": null,
+      "publisher": null,
+      "impact_factor": null,
+      "cluster_id": null
+    },
+    {
+      "title": "Interpretable AI models for clinical decision support in emergency medicine",
+      "authors": [
+        "Sanjiv Kumar",
+        "Wei Zhang"
+      ],
+      "year": 2024,
+      "venue": "The Lancet Digital Health",
+      "citations": 38,
+      "abstract": "Gradient-boosted decision trees with SHAP explanations outperform black-box models for ED triage while maintaining clinician trust.",
+      "url": null,
+      "publisher": null,
+      "impact_factor": null,
+      "cluster_id": null
+    },
+    {
+      "title": "Single-nucleus chromatin accessibility reveals epigenetic aging in the human kidney",
+      "authors": [
+        "David Chen",
+        "Sanjiv Kumar",
+        "Rachel Park"
+      ],
+      "year": 2021,
+      "venue": "Science",
+      "citations": 165,
+      "abstract": "snATAC-seq of 120 human kidney samples spanning ages 20-80 maps cell-type-specific epigenetic clocks and identifies reversible aging signatures.",
+      "url": null,
+      "publisher": null,
+      "impact_factor": null,
+      "cluster_id": null
+    },
+    {
+      "title": "Metabolomic profiling identifies novel biomarkers of acute kidney injury progression",
+      "authors": [
+        "Sanjiv Kumar",
+        "Elena Volkov"
+      ],
+      "year": 2020,
+      "venue": "Kidney International",
+      "citations": 89,
+      "abstract": "Untargeted metabolomics in 500 ICU patients identifies urinary acylcarnitines as early predictors of AKI progression to dialysis.",
+      "url": null,
+      "publisher": null,
+      "impact_factor": null,
+      "cluster_id": null
+    },
+    {
+      "title": "Benchmarking foundation models for biomedical natural language processing",
+      "authors": [
+        "Sanjiv Kumar",
+        "Wei Zhang",
+        "Thomas Okello"
+      ],
+      "year": 2024,
+      "venue": "Nature Methods",
+      "citations": 61,
+      "abstract": "Systematic evaluation of 12 large language models on 8 biomedical NLP benchmarks reveals task-specific performance gaps.",
+      "url": null,
+      "publisher": null,
+      "impact_factor": null,
+      "cluster_id": null
+    },
+    {
+      "title": "Host genetics influence gut microbiome composition and COVID-19 severity",
+      "authors": [
+        "Sarah Lin",
+        "Sanjiv Kumar",
+        "Carlos Mendez",
+        "Anita Krishnan"
+      ],
+      "year": 2022,
+      "venue": "Nature Genetics",
+      "citations": 156,
+      "abstract": "GWAS of microbiome composition in 8,000 individuals identifies HLA variants associated with Prevotella abundance and COVID-19 outcomes.",
+      "url": null,
+      "publisher": null,
+      "impact_factor": null,
+      "cluster_id": null
+    },
+    {
+      "title": "Multimodal imaging biomarkers for Alzheimer disease staging",
+      "authors": [
+        "Sanjiv Kumar",
+        "Priya Sharma",
+        "James Wu"
+      ],
+      "year": 2020,
+      "venue": "JAMA Neurology",
+      "citations": 124,
+      "abstract": "Combined PET-MRI biomarker panel improves staging accuracy from 72% to 91% in a prospective cohort of 400 patients.",
+      "url": null,
+      "publisher": null,
+      "impact_factor": null,
+      "cluster_id": null
+    },
+    {
+      "title": "Nanopore sequencing enables rapid pathogen identification in bloodstream infections",
+      "authors": [
+        "Sanjiv Kumar",
+        "Thomas Okello",
+        "Michael Jensen"
+      ],
+      "year": 2021,
+      "venue": "Clinical Infectious Diseases",
+      "citations": 97,
+      "abstract": "Oxford Nanopore direct-from-blood sequencing identifies pathogens in median 6 hours vs 48 hours for conventional culture.",
+      "url": null,
+      "publisher": null,
+      "impact_factor": null,
+      "cluster_id": null
+    },
+    {
+      "title": "Digital twin modeling for personalized drug dosing in pediatric oncology",
+      "authors": [
+        "Elena Volkov",
+        "Sanjiv Kumar",
+        "Wei Zhang"
+      ],
+      "year": 2023,
+      "venue": "Nature Computational Science",
+      "citations": 72,
+      "abstract": "Physiologically-based pharmacokinetic digital twins improve chemotherapy dosing precision in 150 pediatric ALL patients.",
+      "url": null,
+      "publisher": null,
+      "impact_factor": null,
+      "cluster_id": null
+    },
+    {
+      "title": "Atlas of human tissue-resident memory T cells across 30 organs",
+      "authors": [
+        "Sanjiv Kumar",
+        "Michael Jensen",
+        "David Chen",
+        "Sarah Lin"
+      ],
+      "year": 2022,
+      "venue": "Cell",
+      "citations": 210,
+      "abstract": "CyTOF and scRNA-seq profiling of tissue-resident memory T cells from 30 organs in 12 donors reveals organ-specific phenotypic programs.",
+      "url": null,
+      "publisher": null,
+      "impact_factor": null,
+      "cluster_id": null
+    },
+    {
+      "title": "Explainable deep learning for ECG-based cardiac arrhythmia detection",
+      "authors": [
+        "Sanjiv Kumar",
+        "Priya Sharma"
+      ],
+      "year": 2020,
+      "venue": "Circulation",
+      "citations": 183,
+      "abstract": "An attention-based deep neural network detects 12 arrhythmia types from single-lead ECG with cardiologist-level accuracy and visual explanations.",
+      "url": null,
+      "publisher": null,
+      "impact_factor": null,
+      "cluster_id": null
+    },
+    {
+      "title": "Clonal dynamics of hematopoietic stem cells revealed by single-cell multi-omics",
+      "authors": [
+        "Anita Krishnan",
+        "Sanjiv Kumar",
+        "Rachel Park",
+        "James Wu"
+      ],
+      "year": 2021,
+      "venue": "Nature",
+      "citations": 267,
+      "abstract": "Joint scRNA-seq and ATAC-seq with mitochondrial mutation tracking maps clonal architecture of human hematopoiesis across the lifespan.",
+      "url": null,
+      "publisher": null,
+      "impact_factor": null,
+      "cluster_id": null
+    }
+  ]
+}
