@@ -22,7 +22,7 @@ pip install pubnetwork
 Or for development:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/pubnet.git
+git clone https://github.com/sanjiv856/pubnet.git
 cd pubnet
 pip install -e .
 ```
