@@ -8,7 +8,7 @@ Uses the free Crossref REST API (no key required) to:
 API docs: https://api.crossref.org/swagger-ui/index.html
 Etiquette: https://www.crossref.org/documentation/retrieve-metadata/rest-api/tips-for-using-the-crossref-rest-api/
 
-Rate limits: be polite — include mailto in User-Agent, 50 req/s max.
+Rate limits: be polite - include mailto in User-Agent, 50 req/s max.
 """
 
 from __future__ import annotations

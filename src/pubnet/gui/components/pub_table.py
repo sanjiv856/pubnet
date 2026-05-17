@@ -1,4 +1,4 @@
-"""Sortable publication table component — warm academic palette."""
+"""Sortable publication table component - warm academic palette."""
 
 from __future__ import annotations
 

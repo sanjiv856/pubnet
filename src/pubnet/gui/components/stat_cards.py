@@ -1,4 +1,4 @@
-"""Stat cards row — Publications, Citations, h-index, Co-authors, Avg IF."""
+"""Stat cards row - Publications, Citations, h-index, Co-authors, Avg IF."""
 
 from __future__ import annotations
 
@@ -25,16 +25,16 @@ def stat_cards_row(stats: dict | None = None) -> html.Div:
     """
     if stats is None:
         cards = [
-            make_stat_card("Publications", "—"),
-            make_stat_card("Total citations", "—"),
-            make_stat_card("h-index", "—"),
-            make_stat_card("Co-authors", "—"),
-            make_stat_card("Avg. IF", "—"),
+            make_stat_card("Publications", "--"),
+            make_stat_card("Total citations", "--"),
+            make_stat_card("h-index", "--"),
+            make_stat_card("Co-authors", "--"),
+            make_stat_card("Avg. IF", "--"),
         ]
     else:
         cites = f"{stats.get('total_citations', 0):,}"
         avg_if = stats.get("avg_impact_factor")
-        avg_if_str = f"{avg_if}" if avg_if else "—"
+        avg_if_str = f"{avg_if}" if avg_if else "--"
         cards = [
             make_stat_card("Publications", stats.get("total_publications", 0)),
             make_stat_card("Total citations", cites),

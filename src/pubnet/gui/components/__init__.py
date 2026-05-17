@@ -1,1 +1,1 @@
-"""Dash GUI components — stat cards, network, trends, clusters, pub table."""
+"""Dash GUI components - stat cards, network, trends, clusters, pub table."""

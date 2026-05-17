@@ -62,7 +62,7 @@ def _dedup_titles(pubs: list[Publication]) -> list[Publication]:
     try:
         from rapidfuzz import fuzz
     except ImportError:
-        logger.warning("rapidfuzz not installed — skipping dedup")
+        logger.warning("rapidfuzz not installed - skipping dedup")
         return pubs
 
     if len(pubs) <= 1:
@@ -111,7 +111,7 @@ def _fill_missing(pubs: list[Publication]) -> list[Publication]:
         # Strip whitespace from venue
         if pub.venue and pub.venue.strip() == "":
             updates["venue"] = "Unknown"
-        # Year stays None — analysis modules handle it
+        # Year stays None - analysis modules handle it
         if updates:
             pub = pub.model_copy(update=updates)
         result.append(pub)
@@ -282,7 +282,7 @@ def cluster_topics(
         from sklearn.cluster import KMeans
         from sklearn.feature_extraction.text import TfidfVectorizer
     except ImportError:
-        logger.warning("scikit-learn not installed — skipping topic clustering")
+        logger.warning("scikit-learn not installed - skipping topic clustering")
         return TopicAnalysis()
 
     if len(publications) < num_clusters:
@@ -373,7 +373,7 @@ def compute_stats(
     total_cites = sum(p.citations for p in publications)
     years_str = ""
     if first_year and last_year:
-        years_str = f"{first_year}–{last_year}" if first_year != last_year else str(first_year)
+        years_str = f"{first_year}-{last_year}" if first_year != last_year else str(first_year)
 
     return StatsSummary(
         total_publications=len(publications),

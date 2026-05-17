@@ -81,7 +81,7 @@ def duplicate_publications() -> list[Publication]:
             authors=["Alice Smith"],
             year=2023,
             venue="Nature Medicine",
-            citations=100,  # lower citations — should be removed
+            citations=100,  # lower citations - should be removed
         ),
         Publication(
             title="Deep learning in medical imaging analysis",

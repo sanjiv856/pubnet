@@ -151,7 +151,7 @@ class JournalIFLookup:
         try:
             import requests
         except ImportError:
-            logger.warning("requests not installed — cannot query OpenAlex")
+            logger.warning("requests not installed - cannot query OpenAlex")
             return None
 
         try:
@@ -174,7 +174,7 @@ class JournalIFLookup:
             if citedness and citedness > 0:
                 return round(citedness, 1)
 
-            # No reliable fallback — cited_by_count / works_count is a
+            # No reliable fallback - cited_by_count / works_count is a
             # lifetime ratio, not a 2-year IF, and produces wildly
             # inflated numbers for discontinued or long-running journals.
             # Return None rather than a misleading value.

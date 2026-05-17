@@ -1,8 +1,8 @@
 # PubNet
 
-**Visualise your research footprint.** PubNet takes a Google Scholar profile and turns it into interactive visualisations — co-author networks, citation trends, topic clusters, journal impact factors, and formatted references — all from a single command.
+**Visualise your research footprint.** PubNet takes a Google Scholar profile and turns it into interactive visualisations - co-author networks, citation trends, topic clusters, journal impact factors, and formatted references - all from a single command.
 
-**[Try the live demo](https://pubnetwork.onrender.com/)** — no install required.
+**[Try the live demo](https://pubnetwork.onrender.com/)** - no install required.
 
 ## What PubNet does
 
@@ -109,4 +109,4 @@ pytest tests/
 
 ## License
 
-PolyForm Noncommercial 1.0.0 — free for academic, educational, and non-commercial research use. Commercial use requires a separate license. See [LICENSE](LICENSE) for details.
+PolyForm Noncommercial 1.0.0 - free for academic, educational, and non-commercial research use. Commercial use requires a separate license. See [LICENSE](LICENSE) for details.

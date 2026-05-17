@@ -1,4 +1,4 @@
-"""Citation trends bar chart component (Plotly) — warm academic palette."""
+"""Citation trends bar chart component (Plotly) - warm academic palette."""
 
 from __future__ import annotations
 

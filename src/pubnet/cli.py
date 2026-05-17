@@ -1,4 +1,4 @@
-"""PubNet CLI — publication network analyser.
+"""PubNet CLI - publication network analyser.
 
 Entry points:
     pubnet analyze --scholar-url <url>
@@ -38,7 +38,7 @@ def _setup_logging(verbose: bool) -> None:
 @click.group()
 @click.version_option(__version__, prog_name="pubnet")
 def main():
-    """PubNet — Publication network analyser for researchers."""
+    """PubNet - Publication network analyser for researchers."""
 
 
 # ---------------------------------------------------------------------------

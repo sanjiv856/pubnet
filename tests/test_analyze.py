@@ -15,7 +15,7 @@ from pubnet.analyze import (
 class TestCleanPublications:
     def test_dedup_removes_near_duplicates(self, duplicate_publications):
         cleaned = clean_publications(duplicate_publications)
-        # "Machine learning..." appears twice — should be deduped to 1
+        # "Machine learning..." appears twice - should be deduped to 1
         assert len(cleaned) == 2
 
     def test_dedup_keeps_higher_citations(self, duplicate_publications):
@@ -123,7 +123,7 @@ class TestComputeStats:
 
     def test_years_active(self, sample_author, sample_publications):
         stats = compute_stats(sample_author, sample_publications)
-        assert stats.years_active == "2021–2024"
+        assert stats.years_active == "2021-2024"
 
     def test_top_venue(self, sample_author, sample_publications):
         stats = compute_stats(sample_author, sample_publications)

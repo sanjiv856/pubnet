@@ -1,4 +1,4 @@
-"""Dash callbacks — wire UI interactions to analysis modules.
+"""Dash callbacks - wire UI interactions to analysis modules.
 
 Callback map:
     Analyze button  -> fetch profile -> store data -> update all views

@@ -116,7 +116,7 @@ class StatsSummary(BaseModel):
     total_citations: int = 0
     h_index: int = 0
     i10_index: int = 0
-    years_active: str = ""  # e.g. "2015–2025"
+    years_active: str = ""  # e.g. "2015-2025"
     first_pub_year: int | None = None
     last_pub_year: int | None = None
     top_venue: str | None = None

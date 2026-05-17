@@ -1,4 +1,4 @@
-"""Dash page layout — topbar, sidebar, main panel.
+"""Dash page layout - topbar, sidebar, main panel.
 
 Academic/professional design with warm tones, serif headings, card-based layout.
 """
@@ -31,7 +31,7 @@ def _inject_css(css: str) -> Component:
 
 
 # ---------------------------------------------------------------------------
-# Custom CSS — academic/professional warm palette
+# Custom CSS - academic/professional warm palette
 # ---------------------------------------------------------------------------
 
 CUSTOM_CSS = """

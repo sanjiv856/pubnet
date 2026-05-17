@@ -1,4 +1,4 @@
-"""Publications per year bar chart component (Plotly) — warm academic palette."""
+"""Publications per year bar chart component (Plotly) - warm academic palette."""
 
 from __future__ import annotations
 

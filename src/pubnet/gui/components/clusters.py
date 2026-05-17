@@ -1,4 +1,4 @@
-"""Topic clusters bubble chart component (Plotly) — warm academic palette."""
+"""Topic clusters bubble chart component (Plotly) - warm academic palette."""
 
 from __future__ import annotations
 

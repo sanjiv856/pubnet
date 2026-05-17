@@ -1,4 +1,4 @@
-"""Co-author network graph component using dash-cytoscape — warm academic palette."""
+"""Co-author network graph component using dash-cytoscape - warm academic palette."""
 
 from __future__ import annotations
 
@@ -12,7 +12,7 @@ except ImportError:
 from pubnet.models import CoauthorGraph
 
 
-# Node colour palette — warm academic tones
+# Node colour palette - warm academic tones
 _COLORS = [
     {"bg": "#F0EBE3", "border": "#6B4C3B", "text": "#5A3D2E"},  # ego: warm brown
     {"bg": "#E8F4EF", "border": "#1B5E47", "text": "#1B5E47"},  # teal
