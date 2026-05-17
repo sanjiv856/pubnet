@@ -96,7 +96,7 @@ def render_report(
         pubs_per_year_json=json.dumps(pubs_per_year_chart),
         generated_at=datetime.now().strftime("%Y-%m-%d %H:%M"),
         github_url="https://github.com/sanjiv856/pubnet",
-        gui_url="",  # Set to deployed GUI URL once available
+        gui_url="https://pubnetwork.onrender.com/",  
     )
 
     return html

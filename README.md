@@ -109,4 +109,4 @@ pytest tests/
 
 ## License
 
-PolyForm Noncommercial 1.0.0 - free for academic, educational, and non-commercial research use. Commercial use requires a separate license. See [LICENSE](LICENSE) for details.
+PolyForm Noncommercial 1.0.0 - free for academic, educational, and non-commercial research use. Commercial use requires a separate license. See [LICENSE](https://github.com/sanjiv856/pubnet/blob/main/LICENSE) for details.
