@@ -1,65 +1,59 @@
 # PubNet
 
-Publication network analyser for researchers. Given a Google Scholar profile, PubNet fetches your publications and generates interactive visualisations: co-author networks, citation trends, topic clusters, journal impact factors, and formatted references.
+**Visualise your research footprint.** PubNet takes a Google Scholar profile and turns it into interactive visualisations — co-author networks, citation trends, topic clusters, journal impact factors, and formatted references — all from a single command.
 
-## Features
+**[Try the live demo](https://pubnetwork.onrender.com/)** — no install required.
 
-- **Co-author network graph** - interactive force-directed graph showing collaboration patterns
-- **Citation trends** - yearly citation counts with rolling h-index overlay
-- **Publications per year** - output volume over time
-- **Topic clusters** - TF-IDF + k-means clustering of research themes
-- **Journal impact factors** - Scimago CSV lookup with OpenAlex API fallback
-- **Crossref enrichment** - corrects venue names and adds DOIs via free Crossref API
-- **Reference formatting** - APA, MLA, BibTeX, Vancouver, Chicago with copy-to-clipboard
-- **Two interfaces** - CLI (self-contained HTML report) and Dash GUI (live interactive exploration)
+## What PubNet does
 
-## Install
+Paste any Google Scholar profile URL, and PubNet will:
+
+- Map your **co-author network** as an interactive force-directed graph
+- Chart your **citation trends** over time with a rolling h-index overlay
+- Track your **publications per year** to show research output
+- Cluster your work into **research topics** using TF-IDF and k-means
+- Look up **journal impact factors** from a bundled database of 4,600+ journals
+- Correct venue names via the **Crossref API** before impact factor lookup
+- Format every publication as a **copyable reference** in APA, MLA, BibTeX, Vancouver, or Chicago style
+- Export everything as **JSON or CSV**
+
+PubNet has two interfaces: a **CLI** that generates self-contained HTML reports you can share, and an interactive **web GUI** for live exploration with filters, sorting, and cross-linked charts.
+
+## Quick start
+
+### Option 1: Try it online
+
+Visit **[pubnetwork.onrender.com](https://pubnetwork.onrender.com/)** and click Analyze. A demo profile loads immediately. To analyse your own profile, paste your Google Scholar URL and click Analyze.
+
+### Option 2: Install locally
 
 ```bash
 pip install pubnetwork
 ```
 
-Or for development:
+Requires Python 3.10+. Then:
+
+```bash
+# Generate an HTML report
+pubnet analyze --scholar-url "https://scholar.google.com/citations?user=ML7X29AAAAAJ"
+
+# Or launch the interactive GUI
+pubnet gui
+
+# Or try the bundled demo
+pubnet demo
+```
+
+### Option 3: Clone and develop
 
 ```bash
 git clone https://github.com/sanjiv856/pubnet.git
 cd pubnet
-pip install -e .
+pip install -e ".[dev]"
+pytest tests/
 ```
 
-Requires Python 3.10+.
-
-## Quick start
-
-### Demo (bundled profile)
-
-```bash
-pubnet demo
-```
-
-Generates `sanjiv_kumar_pubnet.html` using the bundled Scholar profile.
-
-### Analyse a Scholar profile
-
-```bash
-pubnet analyze --scholar-url "https://scholar.google.com/citations?user=ML7X29AAAAAJ"
-```
-
-Or by author ID:
-
-```bash
-pubnet analyze --author-id ML7X29AAAAAJ
-```
-
-### Interactive GUI
-
-```bash
-pubnet gui
-```
-
-Opens a Dash web app at `http://localhost:8050` with sidebar navigation, filters, and interactive charts.
-
-## CLI options
+## CLI reference
 
 ```
 pubnet analyze [OPTIONS]
@@ -74,42 +68,45 @@ pubnet analyze [OPTIONS]
   --no-cache                   Force fresh Scholar fetch
   --crossref / --no-crossref   Crossref venue correction (default: enabled)
   -v, --verbose                Debug logging
+
+pubnet gui                     Launch interactive web GUI at localhost:8050
+pubnet demo                    Generate report from bundled demo profile
+pubnet cache list              Show cached profiles
+pubnet cache clear             Remove all cached data
 ```
 
-## Architecture
+Profiles are cached to `~/.pubnet/cache/` so repeated analyses don't re-fetch from Scholar.
+
+## How it works
 
 ```
-Fetch (scholarly) -> Clean/Dedup (rapidfuzz) -> Crossref Enrich -> Analyse -> Render
+Scholar URL → Fetch → Clean/Dedup → Crossref Enrich → Analyse → Render
 ```
 
-Core library with pure-function analysis modules shared by both CLI and GUI:
+The core library is a set of pure-function modules shared by both CLI and GUI:
 
-| Module | Purpose |
-|--------|---------|
-| `fetch.py` | Scholar fetcher with JSON cache |
-| `analyze.py` | Co-author graph, citation trends, topic clusters, stats |
-| `formatters.py` | APA/MLA/BibTeX/Vancouver/Chicago references |
-| `journal_if.py` | Scimago CSV + OpenAlex API impact factors |
-| `crossref.py` | Free Crossref API for venue correction |
-| `report.py` | Jinja2 HTML report renderer |
-| `gui/` | Dash interactive app |
-
-## Cache management
-
-```bash
-pubnet cache list    # Show cached profiles
-pubnet cache clear   # Remove all cached data
-```
-
-Profiles are cached to `~/.pubnet/cache/` to avoid repeated Scholar fetches.
+| Module | What it does |
+|--------|-------------|
+| `fetch.py` | Fetches Scholar profiles via SerpAPI or scholarly, with JSON caching |
+| `analyze.py` | Builds co-author graphs, citation trends, topic clusters, summary stats |
+| `formatters.py` | Formats references in APA, MLA, BibTeX, Vancouver, and Chicago styles |
+| `journal_if.py` | Looks up impact factors from a bundled 4,600-journal Scimago database, with OpenAlex API fallback |
+| `crossref.py` | Corrects venue names and retrieves DOIs via the free Crossref REST API |
+| `report.py` | Renders self-contained HTML reports with embedded Plotly charts |
+| `gui/` | Dash web app with sidebar navigation, filters, and interactive cross-linked charts |
 
 ## Tech stack
 
-Python 3.10+ with scholarly, pydantic, networkx, dash, dash-cytoscape, plotly, scikit-learn, click, jinja2, rapidfuzz.
+Python 3.10+ with scholarly, pydantic, networkx, dash, dash-cytoscape, plotly, scikit-learn, click, jinja2, rapidfuzz, and SerpAPI for cloud deployment.
 
 ## Tests
 
 ```bash
-pip install -e .
 pytest tests/
 ```
+
+142+ tests covering models, fetcher, analysis, formatters, report rendering, CLI, and GUI components.
+
+## License
+
+MIT
