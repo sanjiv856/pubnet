@@ -109,4 +109,4 @@ pytest tests/
 
 ## License
 
-MIT
+PolyForm Noncommercial 1.0.0 — free for academic, educational, and non-commercial research use. Commercial use requires a separate license. See [LICENSE](LICENSE) for details.
