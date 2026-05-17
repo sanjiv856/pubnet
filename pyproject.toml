@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "pubnetwork"
-version = "0.1.1"
+version = "0.1.2"
 description = "Publication network analyser - co-author graphs, citation trends, topic clusters from Google Scholar"
 readme = "README.md"
 requires-python = ">=3.10"

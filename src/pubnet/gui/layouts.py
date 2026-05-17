@@ -418,6 +418,16 @@ def build_layout(scholar_url: str | None = None) -> html.Div:
                     html.Button("Export JSON", id="export-json-btn", n_clicks=0, className="export-btn"),
                     html.Button("Export CSV", id="export-csv-btn", n_clicks=0, className="export-btn"),
                     dcc.Download(id="export-download"),
+                    html.A(
+                        "GitHub",
+                        href="https://github.com/sanjiv856/pubnet",
+                        target="_blank",
+                        style={
+                            "fontSize": "12px", "color": "#6B4C3B", "fontWeight": "500",
+                            "textDecoration": "none", "borderBottom": "1px solid #D4CEC7",
+                            "marginLeft": "auto", "padding": "4px 0",
+                        },
+                    ),
                 ],
                 className="topbar",
             ),
