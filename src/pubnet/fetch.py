@@ -130,7 +130,108 @@ def clear_cache() -> int:
 
 
 # ---------------------------------------------------------------------------
-# Scholar fetching via `scholarly`
+# Scholar fetching via SerpAPI (works on cloud servers)
+# ---------------------------------------------------------------------------
+
+def _fetch_from_serpapi(scholar_id: str) -> Author:
+    """Fetch a profile from Google Scholar using SerpAPI.
+
+    Requires SERPAPI_KEY environment variable or google-search-results package.
+    Works on cloud servers where direct Scholar scraping is blocked.
+    """
+    import os
+    api_key = os.environ.get("SERPAPI_KEY") or os.environ.get("SERPAPI_API_KEY")
+    if not api_key:
+        raise FetchError("No SERPAPI_KEY environment variable set")
+
+    try:
+        from serpapi import GoogleSearch
+    except ImportError:
+        raise FetchError(
+            "The 'google-search-results' package is required for SerpAPI. "
+            "Install with: pip install google-search-results"
+        )
+
+    logger.info("Fetching Scholar profile via SerpAPI: %s", scholar_id)
+
+    # Step 1: Get author info
+    params = {
+        "engine": "google_scholar_author",
+        "author_id": scholar_id,
+        "api_key": api_key,
+        "num": 100,
+    }
+    search = GoogleSearch(params)
+    results = search.get_dict()
+
+    if "error" in results:
+        raise FetchError(f"SerpAPI error: {results['error']}")
+
+    author_info = results.get("author", {})
+    cited_by = results.get("cited_by", {})
+    table = cited_by.get("table", [])
+
+    # Parse h-index and i10-index from the table
+    h_index = None
+    i10_index = None
+    for row in table:
+        if "h_index" in row:
+            h_index = _safe_int(row["h_index"].get("all"))
+        if "i10_index" in row:
+            i10_index = _safe_int(row["i10_index"].get("all"))
+
+    # Step 2: Get publications (SerpAPI returns them with the author query)
+    articles = results.get("articles", [])
+    publications = []
+    for art in articles:
+        authors_str = art.get("authors", "")
+        authors = [a.strip() for a in authors_str.split(",") if a.strip()]
+        publications.append(Publication(
+            title=art.get("title", "Untitled"),
+            authors=authors,
+            year=_safe_int(art.get("year")),
+            venue=art.get("publication") or None,
+            citations=art.get("cited_by", {}).get("value", 0),
+            url=art.get("link") or None,
+        ))
+
+    # Check for additional pages of articles
+    while "next" in results.get("serpapi_pagination", {}):
+        next_url = results["serpapi_pagination"]["next"]
+        # Extract start parameter
+        import urllib.parse
+        parsed = urllib.parse.urlparse(next_url)
+        qs = urllib.parse.parse_qs(parsed.query)
+        params["start"] = qs.get("start", [str(len(publications))])[0]
+        search = GoogleSearch(params)
+        results = search.get_dict()
+        for art in results.get("articles", []):
+            authors_str = art.get("authors", "")
+            authors = [a.strip() for a in authors_str.split(",") if a.strip()]
+            publications.append(Publication(
+                title=art.get("title", "Untitled"),
+                authors=authors,
+                year=_safe_int(art.get("year")),
+                venue=art.get("publication") or None,
+                citations=art.get("cited_by", {}).get("value", 0),
+                url=art.get("link") or None,
+            ))
+
+    return Author(
+        name=author_info.get("name", "Unknown"),
+        scholar_id=scholar_id,
+        affiliation=author_info.get("affiliations"),
+        interests=[i.get("title", "") for i in author_info.get("interests", [])],
+        h_index=h_index,
+        i10_index=i10_index,
+        total_citations=cited_by.get("table", [{}])[0].get("citations", {}).get("all", 0) if table else 0,
+        url_picture=author_info.get("thumbnail"),
+        publications=publications,
+    )
+
+
+# ---------------------------------------------------------------------------
+# Scholar fetching via `scholarly` (direct scraping, works locally)
 # ---------------------------------------------------------------------------
 
 def _scholarly_to_publication(pub_dict: dict) -> Publication:
@@ -253,6 +354,16 @@ def fetch_profile(
         if cached is not None:
             logger.info("Loaded cached profile: %s (%d pubs)", cached.name, len(cached.publications))
             return cached
+
+    # Try SerpAPI first (works on cloud servers), fall back to scholarly
+    import os
+    if os.environ.get("SERPAPI_KEY") or os.environ.get("SERPAPI_API_KEY"):
+        try:
+            author = _fetch_from_serpapi(scholar_id)
+            _write_cache(author)
+            return author
+        except Exception as exc:
+            logger.warning("SerpAPI fetch failed, trying scholarly: %s", exc)
 
     author = _fetch_from_scholarly(scholar_id)
     _write_cache(author)

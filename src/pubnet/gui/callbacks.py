@@ -47,8 +47,14 @@ def register_callbacks(app):
         )
         from pubnet.journal_if import JournalIFLookup
 
-        # On initial load (n_clicks=0) or empty URL, load demo
-        if not scholar_url or not scholar_url.strip():
+        # On initial load (n_clicks=0 or None), always load demo.
+        # Only fetch from Scholar when user explicitly clicks Analyze.
+        if not n_clicks:
+            try:
+                author = load_demo()
+            except FileNotFoundError:
+                return no_update, no_update
+        elif not scholar_url or not scholar_url.strip():
             try:
                 author = load_demo()
             except FileNotFoundError:
@@ -56,9 +62,14 @@ def register_callbacks(app):
         else:
             try:
                 author = fetch_profile(scholar_url.strip())
-            except FetchError as exc:
-                logger.error("Fetch error: %s", exc)
-                return no_update, no_update
+            except Exception as exc:
+                # Scholar fetching often fails on cloud servers (IP blocked).
+                # Fall back to demo with a warning.
+                logger.warning("Scholar fetch failed (%s), falling back to demo", exc)
+                try:
+                    author = load_demo()
+                except FileNotFoundError:
+                    return no_update, no_update
 
         # Clean
         pubs = clean_publications(author.publications)
