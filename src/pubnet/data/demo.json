@@ -1,7 +1,7 @@
 {
   "name": "Sanjiv Kumar",
   "scholar_id": "ML7X29AAAAAJ",
-  "affiliation": "Scientist of Medicine & Biomedical Informatics",
+  "affiliation": "Scientist, Medicine & Biomedical Informatics",
   "email_domain": "university.edu",
   "interests": [
     "immunology",
@@ -51,11 +51,7 @@
     },
     {
       "title": "Epigenetic regulation of T-cell exhaustion in chronic infection",
-      "authors": [
-        "Sanjiv Kumar",
-        "Rachel Park",
-        "David Chen"
-      ],
+      "authors": ["Sanjiv Kumar", "Rachel Park", "David Chen"],
       "year": 2024,
       "venue": "Immunity",
       "citations": 144,
@@ -67,11 +63,7 @@
     },
     {
       "title": "Deep learning for automated histopathology grading in renal biopsies",
-      "authors": [
-        "Sanjiv Kumar",
-        "Priya Sharma",
-        "Wei Zhang"
-      ],
+      "authors": ["Sanjiv Kumar", "Priya Sharma", "Wei Zhang"],
       "year": 2024,
       "venue": "Nature Machine Intelligence",
       "citations": 98,
@@ -83,12 +75,7 @@
     },
     {
       "title": "Multi-omic integration reveals metabolic drivers of sepsis mortality",
-      "authors": [
-        "Sanjiv Kumar",
-        "Anita Krishnan",
-        "James Wu",
-        "Elena Volkov"
-      ],
+      "authors": ["Sanjiv Kumar", "Anita Krishnan", "James Wu", "Elena Volkov"],
       "year": 2023,
       "venue": "The Lancet",
       "citations": 356,
@@ -100,11 +87,7 @@
     },
     {
       "title": "Gut microbiome composition predicts response to immune checkpoint therapy",
-      "authors": [
-        "Sanjiv Kumar",
-        "Sarah Lin",
-        "Carlos Mendez"
-      ],
+      "authors": ["Sanjiv Kumar", "Sarah Lin", "Carlos Mendez"],
       "year": 2022,
       "venue": "Science",
       "citations": 298,
@@ -116,11 +99,7 @@
     },
     {
       "title": "CRISPR-based screening identifies novel regulators of macrophage polarization",
-      "authors": [
-        "Michael Jensen",
-        "Sanjiv Kumar",
-        "Thomas Okello"
-      ],
+      "authors": ["Michael Jensen", "Sanjiv Kumar", "Thomas Okello"],
       "year": 2023,
       "venue": "Nature Immunology",
       "citations": 189,
@@ -132,12 +111,7 @@
     },
     {
       "title": "Spatial transcriptomics maps the tumor immune microenvironment",
-      "authors": [
-        "Sanjiv Kumar",
-        "Rachel Park",
-        "Priya Sharma",
-        "David Chen"
-      ],
+      "authors": ["Sanjiv Kumar", "Rachel Park", "Priya Sharma", "David Chen"],
       "year": 2024,
       "venue": "Nature",
       "citations": 76,
@@ -149,11 +123,7 @@
     },
     {
       "title": "Machine learning prediction of antimicrobial resistance from whole-genome sequences",
-      "authors": [
-        "Wei Zhang",
-        "Sanjiv Kumar",
-        "James Wu"
-      ],
+      "authors": ["Wei Zhang", "Sanjiv Kumar", "James Wu"],
       "year": 2021,
       "venue": "Nature Microbiology",
       "citations": 203,
@@ -165,11 +135,7 @@
     },
     {
       "title": "Circulating tumor DNA dynamics during neoadjuvant immunotherapy",
-      "authors": [
-        "Sanjiv Kumar",
-        "Elena Volkov",
-        "Carlos Mendez"
-      ],
+      "authors": ["Sanjiv Kumar", "Elena Volkov", "Carlos Mendez"],
       "year": 2023,
       "venue": "Journal of Clinical Oncology",
       "citations": 167,
@@ -181,11 +147,7 @@
     },
     {
       "title": "Proteogenomic characterization of treatment-resistant acute myeloid leukemia",
-      "authors": [
-        "Anita Krishnan",
-        "Sanjiv Kumar",
-        "Michael Jensen"
-      ],
+      "authors": ["Anita Krishnan", "Sanjiv Kumar", "Michael Jensen"],
       "year": 2022,
       "venue": "Cancer Cell",
       "citations": 145,
@@ -197,11 +159,7 @@
     },
     {
       "title": "Wearable biosensors for continuous immune monitoring in transplant recipients",
-      "authors": [
-        "Sanjiv Kumar",
-        "Priya Sharma",
-        "Sarah Lin"
-      ],
+      "authors": ["Sanjiv Kumar", "Priya Sharma", "Sarah Lin"],
       "year": 2024,
       "venue": "Science Translational Medicine",
       "citations": 52,
@@ -213,12 +171,7 @@
     },
     {
       "title": "Federated learning for multi-institutional clinical outcome prediction",
-      "authors": [
-        "Wei Zhang",
-        "Sanjiv Kumar",
-        "Elena Volkov",
-        "Thomas Okello"
-      ],
+      "authors": ["Wei Zhang", "Sanjiv Kumar", "Elena Volkov", "Thomas Okello"],
       "year": 2023,
       "venue": "Nature Medicine",
       "citations": 134,
@@ -230,11 +183,7 @@
     },
     {
       "title": "Long non-coding RNA atlas of human immune cell differentiation",
-      "authors": [
-        "Sanjiv Kumar",
-        "David Chen",
-        "Anita Krishnan"
-      ],
+      "authors": ["Sanjiv Kumar", "David Chen", "Anita Krishnan"],
       "year": 2021,
       "venue": "Cell Reports",
       "citations": 112,
@@ -246,11 +195,7 @@
     },
     {
       "title": "Neoantigens from frameshift mutations drive anti-tumor immunity in microsatellite-unstable cancers",
-      "authors": [
-        "Carlos Mendez",
-        "Sanjiv Kumar",
-        "Rachel Park"
-      ],
+      "authors": ["Carlos Mendez", "Sanjiv Kumar", "Rachel Park"],
       "year": 2022,
       "venue": "Nature Medicine",
       "citations": 178,
@@ -262,12 +207,7 @@
     },
     {
       "title": "Real-world effectiveness of CAR-T cell therapy in relapsed large B-cell lymphoma",
-      "authors": [
-        "Sanjiv Kumar",
-        "James Wu",
-        "Anita Krishnan",
-        "Priya Sharma"
-      ],
+      "authors": ["Sanjiv Kumar", "James Wu", "Anita Krishnan", "Priya Sharma"],
       "year": 2023,
       "venue": "New England Journal of Medicine",
       "citations": 234,
@@ -279,10 +219,7 @@
     },
     {
       "title": "Interpretable AI models for clinical decision support in emergency medicine",
-      "authors": [
-        "Sanjiv Kumar",
-        "Wei Zhang"
-      ],
+      "authors": ["Sanjiv Kumar", "Wei Zhang"],
       "year": 2024,
       "venue": "The Lancet Digital Health",
       "citations": 38,
@@ -294,11 +231,7 @@
     },
     {
       "title": "Single-nucleus chromatin accessibility reveals epigenetic aging in the human kidney",
-      "authors": [
-        "David Chen",
-        "Sanjiv Kumar",
-        "Rachel Park"
-      ],
+      "authors": ["David Chen", "Sanjiv Kumar", "Rachel Park"],
       "year": 2021,
       "venue": "Science",
       "citations": 165,
@@ -310,10 +243,7 @@
     },
     {
       "title": "Metabolomic profiling identifies novel biomarkers of acute kidney injury progression",
-      "authors": [
-        "Sanjiv Kumar",
-        "Elena Volkov"
-      ],
+      "authors": ["Sanjiv Kumar", "Elena Volkov"],
       "year": 2020,
       "venue": "Kidney International",
       "citations": 89,
@@ -325,11 +255,7 @@
     },
     {
       "title": "Benchmarking foundation models for biomedical natural language processing",
-      "authors": [
-        "Sanjiv Kumar",
-        "Wei Zhang",
-        "Thomas Okello"
-      ],
+      "authors": ["Sanjiv Kumar", "Wei Zhang", "Thomas Okello"],
       "year": 2024,
       "venue": "Nature Methods",
       "citations": 61,
@@ -358,11 +284,7 @@
     },
     {
       "title": "Multimodal imaging biomarkers for Alzheimer disease staging",
-      "authors": [
-        "Sanjiv Kumar",
-        "Priya Sharma",
-        "James Wu"
-      ],
+      "authors": ["Sanjiv Kumar", "Priya Sharma", "James Wu"],
       "year": 2020,
       "venue": "JAMA Neurology",
       "citations": 124,
@@ -374,11 +296,7 @@
     },
     {
       "title": "Nanopore sequencing enables rapid pathogen identification in bloodstream infections",
-      "authors": [
-        "Sanjiv Kumar",
-        "Thomas Okello",
-        "Michael Jensen"
-      ],
+      "authors": ["Sanjiv Kumar", "Thomas Okello", "Michael Jensen"],
       "year": 2021,
       "venue": "Clinical Infectious Diseases",
       "citations": 97,
@@ -390,11 +308,7 @@
     },
     {
       "title": "Digital twin modeling for personalized drug dosing in pediatric oncology",
-      "authors": [
-        "Elena Volkov",
-        "Sanjiv Kumar",
-        "Wei Zhang"
-      ],
+      "authors": ["Elena Volkov", "Sanjiv Kumar", "Wei Zhang"],
       "year": 2023,
       "venue": "Nature Computational Science",
       "citations": 72,
@@ -406,12 +320,7 @@
     },
     {
       "title": "Atlas of human tissue-resident memory T cells across 30 organs",
-      "authors": [
-        "Sanjiv Kumar",
-        "Michael Jensen",
-        "David Chen",
-        "Sarah Lin"
-      ],
+      "authors": ["Sanjiv Kumar", "Michael Jensen", "David Chen", "Sarah Lin"],
       "year": 2022,
       "venue": "Cell",
       "citations": 210,
@@ -423,10 +332,7 @@
     },
     {
       "title": "Explainable deep learning for ECG-based cardiac arrhythmia detection",
-      "authors": [
-        "Sanjiv Kumar",
-        "Priya Sharma"
-      ],
+      "authors": ["Sanjiv Kumar", "Priya Sharma"],
       "year": 2020,
       "venue": "Circulation",
       "citations": 183,
@@ -438,12 +344,7 @@
     },
     {
       "title": "Clonal dynamics of hematopoietic stem cells revealed by single-cell multi-omics",
-      "authors": [
-        "Anita Krishnan",
-        "Sanjiv Kumar",
-        "Rachel Park",
-        "James Wu"
-      ],
+      "authors": ["Anita Krishnan", "Sanjiv Kumar", "Rachel Park", "James Wu"],
       "year": 2021,
       "venue": "Nature",
       "citations": 267,

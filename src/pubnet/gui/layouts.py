@@ -360,6 +360,15 @@ body {
 }
 .clear-filter-btn:hover { background: #6B4C3B; color: #fff; }
 
+/* Author header */
+.author-header { margin-bottom: 16px; }
+.author-header .affiliation { font-size: 13px; color: #5C4F46; margin-bottom: 8px; font-weight: 400; }
+.author-header .interests { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.author-header .interests span {
+    font-size: 11px; background: #F0EBE3; color: #5A3D2E;
+    padding: 4px 12px; border-radius: 99px; font-weight: 500; letter-spacing: 0.01em;
+}
+
 /* Dash-specific overrides */
 .dash-graph .modebar { display: none !important; }
 ._dash-loading { background: transparent !important; }
