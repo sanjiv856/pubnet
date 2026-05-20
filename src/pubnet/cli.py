@@ -54,8 +54,9 @@ def main():
 @click.option("--output", "-o", default=None, type=click.Path(), help="Output HTML path.")
 @click.option("--no-cache", is_flag=True, help="Force fresh Scholar fetch.")
 @click.option("--crossref/--no-crossref", default=True, help="Enrich via Crossref API (corrects venue names, adds DOIs).")
+@click.option("--serpapi-key", default=None, envvar="SERPAPI_KEY", help="SerpAPI key (or set SERPAPI_KEY env var, or use `pubnet config set serpapi-key`).")
 @click.option("--verbose", "-v", is_flag=True, help="Enable debug logging.")
-def analyze(scholar_url, author_id, use_builtin, ref_format, topics, output, no_cache, crossref, verbose):
+def analyze(scholar_url, author_id, use_builtin, ref_format, topics, output, no_cache, crossref, serpapi_key, verbose):
     """Analyse a Scholar profile and generate an HTML report."""
     _setup_logging(verbose)
 
@@ -76,14 +77,14 @@ def analyze(scholar_url, author_id, use_builtin, ref_format, topics, output, no_
     elif scholar_url:
         click.echo("Fetching profile: " + scholar_url)
         try:
-            author = fetch_profile(scholar_url, use_cache=not no_cache)
+            author = fetch_profile(scholar_url, use_cache=not no_cache, serpapi_key=serpapi_key)
         except FetchError as exc:
             click.echo("Error: " + str(exc), err=True)
             sys.exit(1)
     elif author_id:
         click.echo("Fetching profile: " + author_id)
         try:
-            author = fetch_profile(author_id, use_cache=not no_cache)
+            author = fetch_profile(author_id, use_cache=not no_cache, serpapi_key=serpapi_key)
         except FetchError as exc:
             click.echo("Error: " + str(exc), err=True)
             sys.exit(1)
@@ -245,6 +246,78 @@ def cache_clear():
 
     count = clear_cache()
     click.echo("Removed %d cached profile(s)." % count)
+
+
+# ---------------------------------------------------------------------------
+# config commands
+# ---------------------------------------------------------------------------
+
+@main.group()
+def config():
+    """Manage PubNet configuration (~/.pubnet/config.toml)."""
+
+
+@config.command("set")
+@click.argument("key", type=click.Choice(["serpapi-key"], case_sensitive=False))
+@click.argument("value")
+def config_set(key, value):
+    """Set a configuration value (e.g. pubnet config set serpapi-key <key>)."""
+    from pubnet.config import set_config
+
+    # Normalise CLI key name to config key name
+    config_key = key.replace("-", "_")
+    set_config(config_key, value)
+    click.echo("Saved %s to ~/.pubnet/config.toml" % key)
+
+
+@config.command("show")
+def config_show():
+    """Show current configuration."""
+    from pubnet.config import get_config, CONFIG_PATH, resolve_serpapi_key
+
+    cfg = get_config()
+    if not cfg:
+        click.echo("No configuration set. File: %s" % CONFIG_PATH)
+        click.echo("Use: pubnet config set serpapi-key <your-key>")
+        return
+
+    click.echo("Config file: %s" % CONFIG_PATH)
+    for key, val in sorted(cfg.items()):
+        # Mask API keys for display
+        if "key" in key.lower() and val and len(val) > 8:
+            display = val[:4] + "..." + val[-4:]
+        else:
+            display = val
+        click.echo("  %s = %s" % (key, display))
+
+    # Show effective SerpAPI key source
+    resolved = resolve_serpapi_key()
+    if resolved:
+        import os
+        if os.environ.get("SERPAPI_KEY") or os.environ.get("SERPAPI_API_KEY"):
+            click.echo("  (SerpAPI key active via environment variable)")
+        elif cfg.get("serpapi_key"):
+            click.echo("  (SerpAPI key active via config file)")
+
+
+@config.command("path")
+def config_path():
+    """Print the config file path."""
+    from pubnet.config import CONFIG_PATH
+    click.echo(str(CONFIG_PATH))
+
+
+@config.command("remove")
+@click.argument("key", type=click.Choice(["serpapi-key"], case_sensitive=False))
+def config_remove(key):
+    """Remove a configuration value."""
+    from pubnet.config import remove_config
+
+    config_key = key.replace("-", "_")
+    if remove_config(config_key):
+        click.echo("Removed %s from config." % key)
+    else:
+        click.echo("Key %s not found in config." % key)
 
 
 # ---------------------------------------------------------------------------

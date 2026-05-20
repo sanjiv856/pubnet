@@ -89,7 +89,8 @@ def _format_bibtex(pub: Publication) -> str:
     @article{key, title={...}, author={...}, year={...}, journal={...}}
     """
     key = _bibtex_key(pub)
-    authors_str = " and ".join(pub.authors) if pub.authors else "Unknown"
+    clean_authors = [a for a in pub.authors if a and a.strip()]
+    authors_str = " and ".join(clean_authors) if clean_authors else "Unknown"
 
     lines = [f"@article{{{key},"]
     lines.append(f"  title={{{pub.title}}},")
@@ -142,6 +143,7 @@ def _format_chicago(pub: Publication) -> str:
 
 def _apa_authors(authors: list[str]) -> str:
     """APA: Last, F. M., & Last, F. M. (truncate after 20 with ...)"""
+    authors = [a for a in authors if a and a.strip()]
     if not authors:
         return "Unknown"
     formatted = [_last_initials(a) for a in authors]
@@ -156,6 +158,7 @@ def _apa_authors(authors: list[str]) -> str:
 
 def _mla_authors(authors: list[str]) -> str:
     """MLA: Last, First, and First Last."""
+    authors = [a for a in authors if a and a.strip()]
     if not authors:
         return "Unknown"
     if len(authors) == 1:
@@ -167,6 +170,7 @@ def _mla_authors(authors: list[str]) -> str:
 
 def _vancouver_authors(authors: list[str]) -> str:
     """Vancouver: Last AA, Last BB. Truncate after 6 with et al."""
+    authors = [a for a in authors if a and a.strip()]
     if not authors:
         return "Unknown"
     formatted = [_last_initials_no_dots(a) for a in authors]
@@ -177,6 +181,7 @@ def _vancouver_authors(authors: list[str]) -> str:
 
 def _chicago_authors(authors: list[str]) -> str:
     """Chicago: Last, First. Truncate after 10 with et al."""
+    authors = [a for a in authors if a and a.strip()]
     if not authors:
         return "Unknown"
     if len(authors) == 1:
@@ -194,6 +199,8 @@ def _chicago_authors(authors: list[str]) -> str:
 def _last_initials(name: str) -> str:
     """Convert 'First Middle Last' → 'Last, F. M.'"""
     parts = name.strip().split()
+    if not parts:
+        return "Unknown"
     if len(parts) == 1:
         return parts[0]
     last = parts[-1]
@@ -204,6 +211,8 @@ def _last_initials(name: str) -> str:
 def _last_initials_no_dots(name: str) -> str:
     """Convert 'First Middle Last' → 'Last FM' (Vancouver style)."""
     parts = name.strip().split()
+    if not parts:
+        return "Unknown"
     if len(parts) == 1:
         return parts[0]
     last = parts[-1]
@@ -214,6 +223,8 @@ def _last_initials_no_dots(name: str) -> str:
 def _last_first(name: str) -> str:
     """Convert 'First Last' → 'Last, First'."""
     parts = name.strip().split()
+    if not parts:
+        return "Unknown"
     if len(parts) == 1:
         return parts[0]
     return f"{parts[-1]}, {' '.join(parts[:-1])}"
