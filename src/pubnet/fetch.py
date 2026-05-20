@@ -133,16 +133,20 @@ def clear_cache() -> int:
 # Scholar fetching via SerpAPI (works on cloud servers)
 # ---------------------------------------------------------------------------
 
-def _fetch_from_serpapi(scholar_id: str) -> Author:
+def _fetch_from_serpapi(scholar_id: str, *, api_key: str | None = None) -> Author:
     """Fetch a profile from Google Scholar using SerpAPI.
 
-    Requires SERPAPI_KEY environment variable or google-search-results package.
+    Args:
+        scholar_id: Google Scholar author ID.
+        api_key: SerpAPI key. If None, resolves via config chain.
+
     Works on cloud servers where direct Scholar scraping is blocked.
     """
-    import os
-    api_key = os.environ.get("SERPAPI_KEY") or os.environ.get("SERPAPI_API_KEY")
     if not api_key:
-        raise FetchError("No SERPAPI_KEY environment variable set")
+        from pubnet.config import resolve_serpapi_key
+        api_key = resolve_serpapi_key()
+    if not api_key:
+        raise FetchError("No SerpAPI key configured. Set via: pubnet config set serpapi-key <key>")
 
     try:
         from serpapi import GoogleSearch
@@ -186,12 +190,13 @@ def _fetch_from_serpapi(scholar_id: str) -> Author:
     for art in articles:
         authors_str = art.get("authors", "")
         authors = [a.strip() for a in authors_str.split(",") if a.strip()]
+        cite_val = art.get("cited_by", {}).get("value")
         publications.append(Publication(
             title=art.get("title", "Untitled"),
             authors=authors,
             year=_safe_int(art.get("year")),
             venue=art.get("publication") or None,
-            citations=art.get("cited_by", {}).get("value", 0),
+            citations=cite_val if isinstance(cite_val, int) else (int(cite_val) if cite_val else 0),
             url=art.get("link") or None,
         ))
 
@@ -208,12 +213,13 @@ def _fetch_from_serpapi(scholar_id: str) -> Author:
         for art in results.get("articles", []):
             authors_str = art.get("authors", "")
             authors = [a.strip() for a in authors_str.split(",") if a.strip()]
+            cite_val = art.get("cited_by", {}).get("value")
             publications.append(Publication(
                 title=art.get("title", "Untitled"),
                 authors=authors,
                 year=_safe_int(art.get("year")),
                 venue=art.get("publication") or None,
-                citations=art.get("cited_by", {}).get("value", 0),
+                citations=cite_val if isinstance(cite_val, int) else (int(cite_val) if cite_val else 0),
                 url=art.get("link") or None,
             ))
 
@@ -259,57 +265,14 @@ def _safe_int(val) -> int | None:
         return None
 
 
-def _fetch_from_scholarly(scholar_id: str) -> Author:
-    """Fetch a profile from Google Scholar using the scholarly library."""
-    try:
-        from scholarly import scholarly
-    except ImportError as exc:
-        raise FetchError(
-            "The 'scholarly' library is required for live Scholar fetching. "
-            "Install it with: pip install scholarly"
-        ) from exc
+def _is_blocked(exc: Exception) -> bool:
+    """Check if an exception indicates a Scholar block/CAPTCHA."""
+    msg = str(exc).lower()
+    return any(kw in msg for kw in ("blocked", "captcha", "429", "too many"))
 
-    logger.info("Fetching Scholar profile: %s", scholar_id)
 
-    try:
-        author_gen = scholarly.search_author_id(scholar_id)
-    except Exception as exc:
-        if "blocked" in str(exc).lower() or "captcha" in str(exc).lower():
-            raise ScholarBlockedError(
-                f"Google Scholar blocked the request for {scholar_id}. "
-                "Try again later or use --builtin for demo data."
-            ) from exc
-        raise ProfileNotFoundError(f"Could not find profile: {scholar_id}") from exc
-
-    if author_gen is None:
-        raise ProfileNotFoundError(f"No profile found for ID: {scholar_id}")
-
-    # Fill in all publication details
-    try:
-        author_data = scholarly.fill(author_gen, sections=["basics", "indices", "publications"])
-    except Exception as exc:
-        if "blocked" in str(exc).lower():
-            raise ScholarBlockedError(str(exc)) from exc
-        raise FetchError(f"Error filling profile data: {exc}") from exc
-
-    # Rate-limit: random delay before fetching individual publications
-    publications = []
-    raw_pubs = author_data.get("publications", [])
-    for i, pub in enumerate(raw_pubs):
-        try:
-            filled_pub = scholarly.fill(pub)
-            publications.append(_scholarly_to_publication(filled_pub))
-        except Exception as exc:
-            logger.warning("Skipping publication %d: %s", i, exc)
-            # Still include with basic info
-            publications.append(_scholarly_to_publication(pub))
-
-        # Random delay between 1-3 seconds to avoid rate limiting
-        if i < len(raw_pubs) - 1:
-            delay = random.uniform(1.0, 3.0)
-            logger.debug("Rate limit delay: %.1fs", delay)
-            time.sleep(delay)
-
+def _build_author(author_data: dict, scholar_id: str, publications: list[Publication]) -> Author:
+    """Build an Author model from scholarly author data and publications."""
     return Author(
         name=author_data.get("name", "Unknown"),
         scholar_id=scholar_id,
@@ -324,6 +287,120 @@ def _fetch_from_scholarly(scholar_id: str) -> Author:
     )
 
 
+# Default throttle settings (seconds)
+_BASE_DELAY_MIN = 4.0
+_BASE_DELAY_MAX = 8.0
+_BACKOFF_MULTIPLIER = 2.0
+_MAX_RETRIES_PER_PUB = 3
+_BACKOFF_PAUSE_BASE = 30.0  # base pause after a block, before backoff multiplier
+
+
+def _fetch_from_scholarly(scholar_id: str) -> Author:
+    """Fetch a profile from Google Scholar using the scholarly library.
+
+    Uses adaptive throttling: starts with 4-8s delays between requests and
+    backs off exponentially if Scholar returns a CAPTCHA or 429. If blocked
+    mid-fetch, saves whatever publications were already retrieved so the user
+    doesn't lose progress.
+    """
+    try:
+        from scholarly import scholarly
+    except ImportError as exc:
+        raise FetchError(
+            "The 'scholarly' library is required for live Scholar fetching. "
+            "Install it with: pip install scholarly"
+        ) from exc
+
+    logger.info("Fetching Scholar profile: %s", scholar_id)
+
+    try:
+        author_gen = scholarly.search_author_id(scholar_id)
+    except Exception as exc:
+        if _is_blocked(exc):
+            raise ScholarBlockedError(
+                f"Google Scholar blocked the request for {scholar_id}. "
+                "Try again later or use --builtin for demo data."
+            ) from exc
+        raise ProfileNotFoundError(f"Could not find profile: {scholar_id}") from exc
+
+    if author_gen is None:
+        raise ProfileNotFoundError(f"No profile found for ID: {scholar_id}")
+
+    # Fill in all publication details
+    try:
+        author_data = scholarly.fill(author_gen, sections=["basics", "indices", "publications"])
+    except Exception as exc:
+        if _is_blocked(exc):
+            raise ScholarBlockedError(str(exc)) from exc
+        raise FetchError(f"Error filling profile data: {exc}") from exc
+
+    # ------------------------------------------------------------------
+    # Fetch individual publications with adaptive throttling
+    # ------------------------------------------------------------------
+    publications: list[Publication] = []
+    raw_pubs = author_data.get("publications", [])
+    total = len(raw_pubs)
+    backoff_level = 0  # increases on each consecutive block
+
+    for i, pub in enumerate(raw_pubs):
+        logger.info("Fetching publication %d/%d ...", i + 1, total)
+
+        filled = False
+        for attempt in range(1, _MAX_RETRIES_PER_PUB + 1):
+            try:
+                filled_pub = scholarly.fill(pub)
+                publications.append(_scholarly_to_publication(filled_pub))
+                filled = True
+                backoff_level = max(0, backoff_level - 1)  # cool down on success
+                break
+            except Exception as exc:
+                if _is_blocked(exc):
+                    backoff_level += 1
+                    pause = _BACKOFF_PAUSE_BASE * (_BACKOFF_MULTIPLIER ** (backoff_level - 1))
+                    if attempt < _MAX_RETRIES_PER_PUB:
+                        logger.warning(
+                            "Scholar block on pub %d/%d (attempt %d/%d). "
+                            "Pausing %.0fs before retry ...",
+                            i + 1, total, attempt, _MAX_RETRIES_PER_PUB, pause,
+                        )
+                        time.sleep(pause)
+                    else:
+                        # Exhausted retries -- save partial results
+                        logger.warning(
+                            "Scholar block on pub %d/%d -- max retries exhausted. "
+                            "Saving %d fully-fetched publications.",
+                            i + 1, total, len(publications),
+                        )
+                        # Include remaining pubs with basic (unfilled) info
+                        for remaining_pub in raw_pubs[i:]:
+                            publications.append(_scholarly_to_publication(remaining_pub))
+                        author = _build_author(author_data, scholar_id, publications)
+                        _write_cache(author)
+                        logger.info(
+                            "Partial profile saved: %d/%d publications have full details.",
+                            i, total,
+                        )
+                        return author
+                else:
+                    logger.warning("Error fetching publication %d: %s", i + 1, exc)
+                    break  # non-block error, fall through to basic info
+
+        if not filled:
+            # Include with basic (unfilled) info
+            publications.append(_scholarly_to_publication(pub))
+
+        # Throttle between requests
+        if i < total - 1:
+            delay = random.uniform(
+                _BASE_DELAY_MIN * (_BACKOFF_MULTIPLIER ** min(backoff_level, 3)),
+                _BASE_DELAY_MAX * (_BACKOFF_MULTIPLIER ** min(backoff_level, 3)),
+            )
+            logger.debug("Rate limit delay: %.1fs (backoff level %d)", delay, backoff_level)
+            time.sleep(delay)
+
+    return _build_author(author_data, scholar_id, publications)
+
+
 # ---------------------------------------------------------------------------
 # Public API
 # ---------------------------------------------------------------------------
@@ -332,12 +409,15 @@ def fetch_profile(
     url_or_id: str,
     *,
     use_cache: bool = True,
+    serpapi_key: str | None = None,
 ) -> Author:
     """Fetch a Scholar profile by URL or author ID.
 
     Args:
         url_or_id: Google Scholar profile URL or bare author ID.
         use_cache: If True (default), return cached data when available.
+        serpapi_key: Explicit SerpAPI key. If None, resolves via env var
+            then ~/.pubnet/config.toml.
 
     Returns:
         Author model with publications.
@@ -347,6 +427,8 @@ def fetch_profile(
         ProfileNotFoundError: If the profile doesn't exist.
         ScholarBlockedError: If Scholar blocks the request.
     """
+    from pubnet.config import resolve_serpapi_key
+
     scholar_id = parse_scholar_id(url_or_id)
 
     if use_cache:
@@ -356,10 +438,10 @@ def fetch_profile(
             return cached
 
     # Try SerpAPI first (works on cloud servers), fall back to scholarly
-    import os
-    if os.environ.get("SERPAPI_KEY") or os.environ.get("SERPAPI_API_KEY"):
+    api_key = resolve_serpapi_key(serpapi_key)
+    if api_key:
         try:
-            author = _fetch_from_serpapi(scholar_id)
+            author = _fetch_from_serpapi(scholar_id, api_key=api_key)
             _write_cache(author)
             return author
         except Exception as exc:
