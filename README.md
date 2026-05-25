@@ -85,15 +85,15 @@ Scholar URL → Fetch → Clean/Dedup → Crossref Enrich → Analyse → Render
 
 The core library is a set of pure-function modules shared by both CLI and GUI:
 
-| Module | What it does |
-|--------|-------------|
-| `fetch.py` | Fetches Scholar profiles via SerpAPI or scholarly, with JSON caching |
-| `analyze.py` | Builds co-author graphs, citation trends, topic clusters, summary stats |
-| `formatters.py` | Formats references in APA, MLA, BibTeX, Vancouver, and Chicago styles |
+| Module          | What it does                                                                                      |
+| --------------- | ------------------------------------------------------------------------------------------------- |
+| `fetch.py`      | Fetches Scholar profiles via SerpAPI or scholarly, with JSON caching                              |
+| `analyze.py`    | Builds co-author graphs, citation trends, topic clusters, summary stats                           |
+| `formatters.py` | Formats references in APA, MLA, BibTeX, Vancouver, and Chicago styles                             |
 | `journal_if.py` | Looks up impact factors from a bundled 4,600-journal Scimago database, with OpenAlex API fallback |
-| `crossref.py` | Corrects venue names and retrieves DOIs via the free Crossref REST API |
-| `report.py` | Renders self-contained HTML reports with embedded Plotly charts |
-| `gui/` | Dash web app with sidebar navigation, filters, and interactive cross-linked charts |
+| `crossref.py`   | Corrects venue names and retrieves DOIs via the free Crossref REST API                            |
+| `report.py`     | Renders self-contained HTML reports with embedded Plotly charts                                   |
+| `gui/`          | Dash web app with sidebar navigation, filters, and interactive cross-linked charts                |
 
 ## Tech stack
 
@@ -109,4 +109,8 @@ pytest tests/
 
 ## License
 
-MIT. See [LICENSE](https://github.com/sanjiv856/pubnet/blob/main/LICENSE) for details.
+PolyForm Noncommercial License 1.0.0.
+Free for academic, educational, and non-commercial research use.
+Commercial use requires a separate license.
+
+See [LICENSE](https://github.com/sanjiv856/pubnet/blob/main/LICENSE) for details.
