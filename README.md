@@ -110,6 +110,7 @@ pytest tests/
 ## License
 
 PolyForm Noncommercial License 1.0.0.
+
 Free for academic, educational, and non-commercial research use.
 Commercial use requires a separate license.
 
